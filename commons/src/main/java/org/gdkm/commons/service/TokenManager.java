@@ -36,13 +36,13 @@ public class TokenManager {
 		// 2.检查本地令牌是否存在、是否有效（可以通过过期时间自动处理）
 		if (at == null) {
 			// 如果没有获得分布式事务锁，尝试十次，每次间隔1分钟。
-			for (int i = 0; i < 10; i++) {
-				LOG.trace("缓存中没有令牌，尝试加上分布式锁");
-				// 3.调用远程接口获取令牌，并在获取到令牌以后，把令牌存储在Redis里面
-				// 增加分布式锁： 如果key不存在则设置进去；而如果key存在则等待60秒才能设置进去
-				Boolean result = accessTokenTemplate.boundValueOps("weixin_access_token_lock")//
-						.setIfAbsent(new AccessToken());
-				LOG.trace("增加分布式锁的结果：{}", result);
+			for (int i = 0; i < 10; i++) { 
+				 LOG.trace("缓存中没有令牌，尝试加上分布式锁"); 
+				 // 3.调用远程接口获取令牌，并在获取到令牌以后，把令牌存储在Redis里面 
+				 // 增加分布式锁： 如果key不存在则设置进去；而如果key存在则等待60秒才能设置进去 
+				 Boolean result = accessTokenTemplate.boundValueOps("weixin_access_token_lock")// 
+				 .setIfAbsent(new AccessToken(), 3, TimeUnit.MINUTES); 
+				 LOG.trace("增加分布式锁的结果：{}", result); 
 				if (result == true) {
 					try {
 						// 判断令牌是否在Redis里面
