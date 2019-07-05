@@ -1,0 +1,12 @@
+# 配置数据源
+spring:
+   datasource:
+      url: jdbc:mysql://127.0.0.1:3306/lyf?useSSL=false&serverTimezone=CST&allowPublicKeyRetrieval=true
+      username: lyf
+      password: 1234
+   redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 6
+
+server.port: 8065
