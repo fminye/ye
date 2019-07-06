@@ -33,7 +33,7 @@ public class DebitController {
 
 		libraryService.add(list, bookId);
 
-		mav.setViewName("redirect:/wjq_library/library/debit/list");
+		mav.setViewName("redirect:/lyf_library/library/debit/list");
 		return mav;
 	}
 
@@ -46,7 +46,7 @@ public class DebitController {
 	@RequestMapping("remove/{id}")
 	public String remove(@PathVariable("id") String id, @SessionAttribute(name = "debitList") DebitList list) {
 		libraryService.remove(list, id);
-		return "redirect:/wjq_library/library/debit/list";
+		return "redirect:/lyf_library/library/debit/list";
 	}
 	@RequestMapping("/addList")
 	public String addList() {
